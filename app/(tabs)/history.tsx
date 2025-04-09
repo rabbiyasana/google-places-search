@@ -28,6 +28,7 @@ export default async () => {
   };
 
   const onDelete =  async (id: number) => {
+    // resetStorage()
       const localStorage = await getStorage(DefaultKeys.localStorageKey);
       const newStorage = localStorage.filter((item:LocalStorageSetValue) => item.id !== id);
       await updateStorage(newStorage, DefaultKeys.localStorageKey)
