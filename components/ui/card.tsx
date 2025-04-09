@@ -6,24 +6,30 @@ import { CardProps } from "@/interfaces";
 import { DefaultKeys } from "@/constants/Keys";
 import { ThemedText } from "../ThemedText";
 import { Colors } from "@/constants/Colors";
-import useLocalStorage from "@/hooks/useLocalStorage";
 
-const Card = () => {
+const Card = ({ location, onDelete }: CardProps) => {
+
+  const route = useRouter();
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <ThemedText lightColor="black" type="defaultSemiBold" style={styles.title}>{}</ThemedText>
+        <ThemedText lightColor="black" type="defaultSemiBold" style={styles.title}>{location.text}</ThemedText>
       </View>
       <View style={styles.iconContainer}>
         <TouchableOpacity
-          onPress={() => { }}
+          onPress={() => {
+            route.push({
+              pathname: DefaultKeys.route.index as any,
+              params: { query: JSON.stringify(location) },
+            });
+          }}
           activeOpacity={0.5}
         >
           <IconSymbol size={20} name="location.fill" color={Colors.light.icon} />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() => {onDelete(location?.id)}}
           activeOpacity={0.5}
         >
           <IconSymbol size={20} name="trash" color={Colors.light.icon} />

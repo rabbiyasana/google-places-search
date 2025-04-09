@@ -39,7 +39,7 @@ const GooglePlacesAutoCompleteSearch = ({
           fields: "geometry",
         }}
         query={{
-          key: "",
+          key: "AIzaSyDoD1RhZipH7rpvHCGYhYvV8khqrI-jiK4",
           language: "en",
         }}
         textInputProps={{
