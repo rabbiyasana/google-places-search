@@ -4,13 +4,66 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { usePathname } from "expo-router";
 import { GooglePlacesAutoCompleteParamsForMapView, GooglePlacesAutoCompleteResultDataProps, GooglePlacesAutoCompleteResultDetailsProps, LocalStorageSetValue } from "@/interfaces";
 
-const GooglePlacesAutoCompleteSearch = () => {
- 
+interface GooglePlacesAutoCompleteSearchProps {
+  onClick: (value:GooglePlacesAutoCompleteParamsForMapView) => void;
+  text: string | undefined;
+  queryParams:GooglePlacesAutoCompleteParamsForMapView | null
+}
+
+const GooglePlacesAutoCompleteSearch = ({
+  text,
+  queryParams,
+  onClick,
+}: GooglePlacesAutoCompleteSearchProps) => {
+  const [inputValue, setInputValue] = useState<any>("");
+
+  useEffect(() => {
+    if (queryParams != null) setInputValue(queryParams.text);
+  }, [usePathname(),text]);
+
+  const onSelectLocation = (data: GooglePlacesAutoCompleteResultDataProps, details: GooglePlacesAutoCompleteResultDetailsProps | null) => {
+    onClick({
+      text: data.description,
+      longitude: details?.geometry.location.lng || 0,
+      latitude: details?.geometry.location.lat || 0,
+    });
+    setInputValue(data.description);
+  };
+
   return (
-    <></>
+    <View style={styles.container}>
+      <GooglePlacesAutocomplete
+        placeholder="Search"
+        fetchDetails={true}
+        GooglePlacesDetailsQuery={{
+          fields: "geometry",
+        }}
+        query={{
+          key: "AIzaSyDoD1RhZipH7rpvHCGYhYvV8khqrI-jiK4",
+          language: "en",
+        }}
+        textInputProps={{
+          value: inputValue,
+          onChange: (e) => setInputValue(e),
+        }}
+        onPress={(data, details) => onSelectLocation(data, details)}
+        onFail={(error) => console.error(error)}
+      />
+    </View>
   );
 };
 
 export default GooglePlacesAutoCompleteSearch;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 10,
+    height: 200,
+    paddingTop: 20,
+  },
+});
