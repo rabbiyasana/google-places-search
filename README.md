@@ -1,50 +1,69 @@
-# Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Google Places Search
+## How to run
+git  clone  https://github.com/rabbiyasana/google-places-search.git
 
-## Get started
+- npm i/install
 
-1. Install dependencies
+- npm start
 
-   ```bash
-   npm install
-   ```
+it will start the project in expo reaact-native
 
-2. Start the app
+- to run on ios enter i
 
-   ```bash
-    npx expo start
-   ```
+- and for android press a
 
-In the output, you'll find options to open the app in a
+## Application Structure
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Tabs
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+index.tsx  
 
-## Get a fresh project
+    GooglePlacesAutoCompleteSearch
+        This component will have the Auto complete dropdown input
+        to search locaiton and get auto suggestions.
 
-When you're ready, run:
+    GoogleMapView
+        This component will render the location map when user select
+        any location from input dropdown
 
-```bash
-npm run reset-project
-```
+history.tsx
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+        Card
+            It will render single card with details of location with
+            2 action items (view & delete)
 
-## Learn more
+Constants(folder)
 
-To learn more about developing your project with Expo, look at the following resources:
+    colors.ts
+        The file contain color theme for text, backgound, icon,
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+    keys.ts
+        This file contain constant keys which will be using on 
+        different locaitons, e.g (localstorage, route)
 
-## Join the community
+Hooks(folder)
 
-Join our community of developers creating universal apps.
+    useAddUniqueId
+        Custom hook to add Unique id in object which we will get from
+        on select the locaiton from google places auto complete 
+        dropdown.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+    useLocalStorage
+        Custom hooks to use Localstorage to store/edit/delete/get 
+        locations for later use as history list
+        
+
+interface.ts
+    
+    This file will contain all interface for type scripting 
+
+.env
+
+    GOOGLE_PLACE_API (add your google place api key here to use
+    Google Places Auto Complete library)
+   
+# Demo
+
+https://github.com/user-attachments/assets/2b00a5fc-9d9b-458f-af80-dfaec1e13242
+

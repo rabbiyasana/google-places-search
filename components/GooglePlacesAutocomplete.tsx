@@ -3,6 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { usePathname } from "expo-router";
 import { GooglePlacesAutoCompleteParamsForMapView, GooglePlacesAutoCompleteResultDataProps, GooglePlacesAutoCompleteResultDetailsProps, LocalStorageSetValue } from "@/interfaces";
+import Constants from 'expo-constants';
 
 interface GooglePlacesAutoCompleteSearchProps {
   onClick: (value:GooglePlacesAutoCompleteParamsForMapView) => void;
@@ -16,7 +17,10 @@ const GooglePlacesAutoCompleteSearch = ({
   onClick,
 }: GooglePlacesAutoCompleteSearchProps) => {
   const [inputValue, setInputValue] = useState<any>("");
-
+  const { EXPO_GOOGLE_PLACE_API } = Constants.expoConfig?.extra as {
+    EXPO_GOOGLE_PLACE_API: string;
+  };
+  
   useEffect(() => {
     if (queryParams != null) setInputValue(queryParams.text);
   }, [usePathname(),text]);
@@ -39,7 +43,7 @@ const GooglePlacesAutoCompleteSearch = ({
           fields: "geometry",
         }}
         query={{
-          key: "AIzaSyDoD1RhZipH7rpvHCGYhYvV8khqrI-jiK4",
+          key: EXPO_GOOGLE_PLACE_API,
           language: "en",
         }}
         textInputProps={{
